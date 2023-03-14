@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.clothesshop.R;
 import com.example.clothesshop.databinding.FragmentCategoryBinding;
 
 public class CategoryFragment extends Fragment {
@@ -18,9 +19,7 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentCategoryBinding.inflate(inflater, container, false);
-
-        return binding.getRoot();
+        return inflater.inflate(R.layout.fragment_category, container, false);
     }
 
 }
