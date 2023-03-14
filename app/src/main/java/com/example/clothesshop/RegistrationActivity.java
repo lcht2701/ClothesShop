@@ -2,13 +2,17 @@ package com.example.clothesshop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,8 @@ public class RegistrationActivity extends AppCompatActivity {
     TextView signIn;
     FirebaseAuth auth;
     FirebaseDatabase database;
+    ProgressBar progressBar;
+    RelativeLayout loadingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
+        loadingLayout = (RelativeLayout) findViewById(R.id.loading_layout);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        loadingLayout.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
 
         signUp = findViewById(R.id.register_btn);
         name = findViewById(R.id.name_register);
@@ -54,6 +65,8 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createUser();
+                loadingLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -87,10 +100,14 @@ public class RegistrationActivity extends AppCompatActivity {
                     UserModel userModel = new UserModel(userName,userEmail,userPassword);
                     String id = Objects.requireNonNull(task.getResult().getUser()).getUid();
                     database.getReference().child("Users").child(id).setValue(userModel);
+                    loadingLayout.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
 
                     Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    loadingLayout.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(RegistrationActivity.this, "Error" + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
