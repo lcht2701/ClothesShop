@@ -1,9 +1,11 @@
-package com.example.clothesshop;
+package com.example.clothesshop.activities;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.clothesshop.R;
+import com.example.clothesshop.databinding.ActivityMainBinding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -13,8 +15,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.clothesshop.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 

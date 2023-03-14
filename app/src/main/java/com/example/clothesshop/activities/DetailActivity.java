@@ -1,8 +1,10 @@
-package com.example.clothesshop;
+package com.example.clothesshop.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.clothesshop.R;
 
 public class DetailActivity extends AppCompatActivity {
 

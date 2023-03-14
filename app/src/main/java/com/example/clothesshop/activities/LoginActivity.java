@@ -1,4 +1,4 @@
-package com.example.clothesshop;
+package com.example.clothesshop.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.clothesshop.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
             }
         });
 
@@ -55,39 +56,37 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginUser();
-                loadingLayout.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
-
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
+
 
     private void loginUser() {
         String userEmail = email.getText().toString();
         String userPassword = password.getText().toString();
 
-        if(TextUtils.isEmpty(userEmail)) {
-            Toast.makeText(this,"Mail is empty!",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(userEmail)) {
+            Toast.makeText(this, "Mail is empty!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(userPassword)) {
-            Toast.makeText(this,"Password is empty!",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(userPassword)) {
+            Toast.makeText(this, "Password is empty!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(userPassword.length() < 6) {
-            Toast.makeText(this,"Password length must be greater than 6 letters!",Toast.LENGTH_SHORT).show();
+        if (userPassword.length() < 6) {
+            Toast.makeText(this, "Password length must be greater than 6 letters!", Toast.LENGTH_SHORT).show();
             return;
         }
         //Login User
         auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     loadingLayout.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     loadingLayout.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, "Error" + task.getException(), Toast.LENGTH_SHORT).show();

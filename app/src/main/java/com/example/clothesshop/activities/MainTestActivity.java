@@ -1,4 +1,4 @@
-package com.example.clothesshop;
+package com.example.clothesshop.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -9,18 +9,19 @@ import android.os.Bundle;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.clothesshop.R;
 import com.example.clothesshop.adapters.ClothesAdapter;
 import com.example.clothesshop.models.Clothes;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class MainTestActivity extends AppCompatActivity {
     RecyclerView recClothes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_main_test);
 
         //Item list RecycleView
         recClothes = findViewById(R.id.rec_clothes);
