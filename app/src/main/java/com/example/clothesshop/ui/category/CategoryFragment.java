@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapters.NavCategoryAdapter;
 import com.example.clothesshop.databinding.FragmentCategoryBinding;
-import com.example.clothesshop.models.NavCategoryModel;
+import com.example.clothesshop.models.CategoryModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,7 +30,7 @@ public class CategoryFragment extends Fragment {
     //private FragmentCategoryBinding binding;
 
     FirebaseFirestore db;
-    List<NavCategoryModel> categoryModels;
+    List<CategoryModel> categoryModels;
     RecyclerView recyclerView;
     NavCategoryAdapter navCategoryAdapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,7 +52,7 @@ public class CategoryFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
                             for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                NavCategoryModel navCategoryModel = documentSnapshot.toObject(NavCategoryModel.class);
+                                CategoryModel navCategoryModel = documentSnapshot.toObject(CategoryModel.class);
                                 categoryModels.add(navCategoryModel);
                                 navCategoryAdapter.notifyDataSetChanged();
                             }

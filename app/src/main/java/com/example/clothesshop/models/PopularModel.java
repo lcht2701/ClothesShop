@@ -8,6 +8,10 @@ public class PopularModel {
     String type;
     String img_url;
 
+    public PopularModel() {
+
+    }
+
     public PopularModel(String name, String description, String rating, String discount, String type, String img_url) {
         this.name = name;
         this.description = description;

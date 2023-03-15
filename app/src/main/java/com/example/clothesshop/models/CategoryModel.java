@@ -1,14 +1,14 @@
 package com.example.clothesshop.models;
 
-public class NavCategoryModel {
+public class CategoryModel {
     String name;
     String discount;
     String img_url;
 
-    public NavCategoryModel() {
+    public CategoryModel() {
     }
 
-    public NavCategoryModel(String name, String discount, String img_url) {
+    public CategoryModel(String name, String discount, String img_url) {
         this.name = name;
         this.discount = discount;
         this.img_url = img_url;
