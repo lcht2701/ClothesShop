@@ -32,5 +32,9 @@
             android:id="@+id/nav_my_cart"
             android:icon="@drawable/mycart"
             android:title="@string/my_cart" />
+        <item
+            android:id="@+id/nav_location"
+            android:icon="@drawable/ic_baseline_location_on_24"
+            android:title="@string/location" />
     </group>
 </menu>
