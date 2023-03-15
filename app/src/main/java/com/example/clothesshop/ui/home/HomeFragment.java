@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapters.HomeCategoryAdapter;
 import com.example.clothesshop.adapters.HomePopularAdapter;
+import com.example.clothesshop.adapters.RecommendedAdapter;
 import com.example.clothesshop.databinding.FragmentHomeBinding;
 import com.example.clothesshop.models.CategoryModel;
 import com.example.clothesshop.models.PopularModel;
+import com.example.clothesshop.models.RecommendedModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,15 +32,20 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView popularRec, homeCategoryRec;
+    RecyclerView popularRec, homeCategoryRec, recommendedRec;
     FirebaseFirestore db;
     private FragmentHomeBinding binding;
+    ProgressBar progressBar;
+    ScrollView scrollView;
     //Popular items
     List<PopularModel> popularModelList;
     HomePopularAdapter popularAdapter;
     //Home Categories
     List<CategoryModel> categoryModelList;
     HomeCategoryAdapter homeCategoryAdapter;
+    //Recommended
+    List<RecommendedModel> recommendedModelList;
+    RecommendedAdapter recommendedAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +53,13 @@ public class HomeFragment extends Fragment {
 
         popularRec = root.findViewById(R.id.popular_rec);
         homeCategoryRec = root.findViewById(R.id.explore_rec);
+        recommendedRec = root.findViewById(R.id.recommended_rec);
+        progressBar = root.findViewById(R.id.progress_bar);
+        scrollView = root.findViewById(R.id.scroll_view);
+
+        progressBar.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.GONE);
+
         db = FirebaseFirestore.getInstance();
         //Popular Items
         popularRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
@@ -62,6 +78,8 @@ public class HomeFragment extends Fragment {
                                 PopularModel popularModel = document.toObject(PopularModel.class);
                                 popularModelList.add(popularModel);
                                 popularAdapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
+                                scrollView.setVisibility(View.VISIBLE);
                             }
                         } else {
                             Toast.makeText(getActivity(), "Error" + task.getException(), Toast.LENGTH_SHORT).show();
@@ -80,11 +98,34 @@ public class HomeFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                                 CategoryModel homeCategoryModel = documentSnapshot.toObject(CategoryModel.class);
                                 categoryModelList.add(homeCategoryModel);
                                 homeCategoryAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "Error" + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        //Recommended
+        recommendedRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        recommendedModelList = new ArrayList<>();
+        recommendedAdapter = new RecommendedAdapter(getActivity(), recommendedModelList);
+        recommendedRec.setAdapter(recommendedAdapter);
+
+        db.collection("Recommended")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                RecommendedModel recommendedModel = documentSnapshot.toObject(RecommendedModel.class);
+                                recommendedModelList.add(recommendedModel);
+                                recommendedAdapter.notifyDataSetChanged();
                             }
                         } else {
                             Toast.makeText(getActivity(), "Error" + task.getException(), Toast.LENGTH_SHORT).show();
