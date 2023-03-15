@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.clothesshop.R;
-import com.example.clothesshop.models.NavCategoryModel;
+import com.example.clothesshop.models.CategoryModel;
 //import com.google.firebase.database.core.Context;
 import android.content.Context;
 
@@ -19,9 +19,9 @@ import java.util.List;
 
 public class NavCategoryAdapter extends RecyclerView.Adapter<NavCategoryAdapter.ViewHolder> {
     Context context;
-    List<NavCategoryModel> list;
+    List<CategoryModel> list;
 
-    public NavCategoryAdapter(Context context, List<NavCategoryModel> list) {
+    public NavCategoryAdapter(Context context, List<CategoryModel> list) {
         this.context = context;
         this.list = list;
     }
