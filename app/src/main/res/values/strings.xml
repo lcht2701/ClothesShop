@@ -24,4 +24,6 @@
     <string name="new_products">New Products</string>
     <string name="my_orders">My Orders</string>
     <string name="my_cart">My Cart</string>
+    <string name="gg_map_key">AIzaSyB9rGCsQ4Du5zB_TSbLWH5QA_A2j6KbNJY</string>
+    <string name="location">Our Location</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.clothesshop;
+package com.example.clothesshop.ui;
 
 import android.os.Bundle;
 
@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MyCart extends Fragment {
+import com.example.clothesshop.R;
 
-    public MyCart() {
+public class MyCartFragment extends Fragment {
+
+    public MyCartFragment() {
         // Required empty public constructor
     }
 
