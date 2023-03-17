@@ -4,14 +4,24 @@ public class CategoryModel {
     String name;
     String discount;
     String img_url;
+    String type;
 
     public CategoryModel() {
     }
 
-    public CategoryModel(String name, String discount, String img_url) {
+    public CategoryModel(String name, String discount, String img_url, String type) {
         this.name = name;
         this.discount = discount;
         this.img_url = img_url;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
