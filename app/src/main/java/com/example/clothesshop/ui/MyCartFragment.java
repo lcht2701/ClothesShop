@@ -16,9 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.clothesshop.R;
+import com.example.clothesshop.activities.PlacedOrderActivity;
 import com.example.clothesshop.adapters.MyCartAdapter;
 import com.example.clothesshop.models.MyCartModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +31,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +42,8 @@ public class MyCartFragment extends Fragment {
     RecyclerView recyclerView;
     MyCartAdapter myCartAdapter;
     List<MyCartModel> myCartModels;
+    ProgressBar progressBar;
+    Button buyNow;
 
     public MyCartFragment() {
         // Required empty public constructor
@@ -48,10 +54,17 @@ public class MyCartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_my_cart, container, false);
+
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+
+        progressBar = root.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+
         recyclerView = root.findViewById(R.id.recycler_view);
+        recyclerView.setVisibility(View.GONE);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        buyNow = root.findViewById(R.id.buy_now);
 
         overTotalAmount = root.findViewById(R.id.textView3);
 
@@ -60,20 +73,37 @@ public class MyCartFragment extends Fragment {
         myCartModels = new ArrayList<>();
         myCartAdapter = new MyCartAdapter(getActivity(),myCartModels);
         recyclerView.setAdapter(myCartAdapter);
-        db.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                .collection("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("CurrentUser").document(auth.getCurrentUser().getUid())
+                .collection("AddToCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
+                            if(task.getResult().isEmpty()) {
+                                root.findViewById(R.id.constrain1).setVisibility(View.VISIBLE);
+                            }
                             for(DocumentSnapshot documentSnapshot : task.getResult()) {
+                                String documentId = documentSnapshot.getId();
+
                                 MyCartModel cartModel = documentSnapshot.toObject(MyCartModel.class);
+                                assert cartModel != null;
+                                cartModel.setDocumentId(documentId);
                                 myCartModels.add(cartModel);
                                 myCartAdapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
+                                recyclerView.setVisibility(View.VISIBLE);
                             }
                         }
                     }
                 });
+        buyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), PlacedOrderActivity.class);
+                intent.putExtra("itemList",(Serializable) myCartModels);
+                startActivity(intent);
+            }
+        });
         return root;
     }
     public BroadcastReceiver mMessageRecevier = new BroadcastReceiver() {

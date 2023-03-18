@@ -1,6 +1,8 @@
 package com.example.clothesshop.models;
 
-public class MyCartModel {
+import java.io.Serializable;
+
+public class MyCartModel implements Serializable {
     String productName;
     String productPrice;
     String currentDate;
@@ -8,18 +10,28 @@ public class MyCartModel {
     String totalQuantity;
     String img_url;
     int totalPrice;
+    String documentId;
 
     public MyCartModel() {
     }
 
-    public MyCartModel(String productName, String productPrice, String currentDate, String currentTime, String totalQuantity, String img_url,int totalPrice) {
+    public MyCartModel(String productName, String productPrice, String currentDate, String currentTime, String totalQuantity, String img_url, int totalPrice, String documentId) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.currentDate = currentDate;
         this.currentTime = currentTime;
         this.totalQuantity = totalQuantity;
-        this.totalPrice = totalPrice;
         this.img_url = img_url;
+        this.totalPrice = totalPrice;
+        this.documentId = documentId;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     public String getImg_url() {
