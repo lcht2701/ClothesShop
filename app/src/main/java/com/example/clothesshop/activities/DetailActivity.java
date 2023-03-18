@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class DetailActivity extends AppCompatActivity {
     TextView quantity;
-    int totalQuantity, totalPrice;
+    int totalQuantity = 1, totalPrice;
     ImageView detailedImg;
     TextView name,price,rating,description;
     Button addToCart;
@@ -71,7 +71,7 @@ public class DetailActivity extends AppCompatActivity {
             rating.setText(viewAllModel.getRating());
             description.setText(viewAllModel.getDescription());
             name.setText(viewAllModel.getName());
-            price.setText("Price: " + viewAllModel.getPrice() + "$");
+            price.setText(viewAllModel.getPrice() + "$");
             totalPrice = viewAllModel.getPrice() * totalQuantity;
 
         }
@@ -129,8 +129,8 @@ public class DetailActivity extends AppCompatActivity {
         cartMap.put("currentTime", saveCurrentTime);
         cartMap.put("totalQuantity", quantity.getText().toString());
         cartMap.put("totalPrice", totalPrice);
-        firestore.collection("AddToCart").document(Objects.requireNonNull(auth.getCurrentUser()).getUid())
-                .collection("CurrentUser").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        firestore.collection("CurrentUser").document(Objects.requireNonNull(auth.getCurrentUser()).getUid())
+                .collection("AddToCart").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         Toast.makeText(DetailActivity.this, "Added successfully", Toast.LENGTH_SHORT).show();
