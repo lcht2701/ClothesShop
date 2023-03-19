@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -59,89 +60,98 @@ public class ViewAllActivity extends AppCompatActivity {
         recyclerView.setAdapter(viewAllAdapter);
         //Get Tee
         if (type != null && type.equalsIgnoreCase("tee")) {
-            firestore.collection("AllProducts").whereEqualTo("type", "tee")
-                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @SuppressLint("NotifyDataSetChanged")
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-                                ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
-                                viewAllModels.add(viewAllModel);
-                                viewAllAdapter.notifyDataSetChanged();
-                                progressBar.setVisibility(View.GONE);
-                                recyclerView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    });
+            firestore.collection("AllProducts").whereEqualTo("type", "tee").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                        ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
+                        viewAllModels.add(viewAllModel);
+                        viewAllAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         }
         //Get Jacket
         if (type != null && type.equalsIgnoreCase("jacket")) {
-            firestore.collection("AllProducts").whereEqualTo("type", "jacket")
-                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @SuppressLint("NotifyDataSetChanged")
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-                                ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
-                                viewAllModels.add(viewAllModel);
-                                viewAllAdapter.notifyDataSetChanged();
-                                progressBar.setVisibility(View.GONE);
-                                recyclerView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    });
+            firestore.collection("AllProducts").whereEqualTo("type", "jacket").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                        ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
+                        viewAllModels.add(viewAllModel);
+                        viewAllAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         }
         //Get Pants
         if (type != null && type.equalsIgnoreCase("pants")) {
-            firestore.collection("AllProducts").whereEqualTo("type", "pants")
-                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @SuppressLint("NotifyDataSetChanged")
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-                                ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
-                                viewAllModels.add(viewAllModel);
-                                viewAllAdapter.notifyDataSetChanged();
-                                progressBar.setVisibility(View.GONE);
-                                recyclerView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    });
+            firestore.collection("AllProducts").whereEqualTo("type", "pants").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                        ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
+                        viewAllModels.add(viewAllModel);
+                        viewAllAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         }
         //Get Accessories
         if (type != null && type.equalsIgnoreCase("accessories")) {
-            firestore.collection("AllProducts").whereEqualTo("type", "accessories")
-                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @SuppressLint("NotifyDataSetChanged")
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-                                ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
-                                viewAllModels.add(viewAllModel);
-                                viewAllAdapter.notifyDataSetChanged();
-                                progressBar.setVisibility(View.GONE);
-                                recyclerView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    });
+            firestore.collection("AllProducts").whereEqualTo("type", "accessories").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                        ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
+                        viewAllModels.add(viewAllModel);
+                        viewAllAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         }
         //Get Sweats
         if (type != null && type.equalsIgnoreCase("sweat")) {
-            firestore.collection("AllProducts").whereEqualTo("type", "sweat")
-                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @SuppressLint("NotifyDataSetChanged")
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-                                ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
-                                viewAllModels.add(viewAllModel);
-                                viewAllAdapter.notifyDataSetChanged();
-                                progressBar.setVisibility(View.GONE);
-                                recyclerView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    });
+            firestore.collection("AllProducts").whereEqualTo("type", "sweat").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                        ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
+                        viewAllModels.add(viewAllModel);
+                        viewAllAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
 }

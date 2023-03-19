@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.clothesshop.R;
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HomeActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
+
     FirebaseAuth auth;
 
     @Override
@@ -25,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
-        if (auth.getCurrentUser() != null){
+        if (auth.getCurrentUser() != null) {
             progressBar.setVisibility(View.VISIBLE);
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
             Toast.makeText(this, "Please wait ...", Toast.LENGTH_SHORT).show();
@@ -33,11 +35,11 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    public void Login(View view){
-        startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+    public void Login(View view) {
+        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
     }
 
-    public void Register(View view){
-        startActivity(new Intent(HomeActivity.this,RegistrationActivity.class));
+    public void Register(View view) {
+        startActivity(new Intent(HomeActivity.this, RegistrationActivity.class));
     }
 }

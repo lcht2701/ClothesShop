@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,7 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView quantity;
     int totalQuantity = 1, totalPrice;
     ImageView detailedImg;
-    TextView name,price,rating,description;
+    TextView name, price, rating, description;
     Button addToCart;
     ImageView addItem, removeItem;
     Toolbar toolbar;
@@ -52,7 +53,7 @@ public class DetailActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         final Object object = getIntent().getSerializableExtra("detail");
-        if(object instanceof ViewAllModel) {
+        if (object instanceof ViewAllModel) {
             viewAllModel = (ViewAllModel) object;
         }
 
@@ -66,7 +67,7 @@ public class DetailActivity extends AppCompatActivity {
         name = findViewById(R.id.detailed_name);
         description = findViewById(R.id.detailed_rec);
 
-        if(viewAllModel != null) {
+        if (viewAllModel != null) {
             Glide.with(getApplicationContext()).load(viewAllModel.getImg_url()).into(detailedImg);
             rating.setText(viewAllModel.getRating());
             description.setText(viewAllModel.getDescription());
@@ -88,7 +89,7 @@ public class DetailActivity extends AppCompatActivity {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(totalQuantity < 10) {
+                if (totalQuantity < 10) {
                     totalQuantity++;
                     quantity.setText(String.valueOf(totalQuantity));
                     totalPrice = viewAllModel.getPrice() * totalQuantity;
@@ -100,7 +101,7 @@ public class DetailActivity extends AppCompatActivity {
         removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(totalQuantity > 1) {
+                if (totalQuantity > 1) {
                     totalQuantity--;
                     quantity.setText(String.valueOf(totalQuantity));
                     totalPrice = viewAllModel.getPrice() * totalQuantity;
@@ -120,7 +121,7 @@ public class DetailActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calForDate.getTime());
 
-        final HashMap<String,Object> cartMap = new HashMap<>();
+        final HashMap<String, Object> cartMap = new HashMap<>();
 
         cartMap.put("productName", viewAllModel.getName());
         cartMap.put("img_url", viewAllModel.getImg_url());
@@ -138,5 +139,20 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

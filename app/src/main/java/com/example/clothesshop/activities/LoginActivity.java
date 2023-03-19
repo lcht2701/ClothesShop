@@ -79,19 +79,22 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         //Login User
-        auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    loadingLayout.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
-                } else {
-                    loadingLayout.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, "Error" + task.getException(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        auth.signInWithEmailAndPassword(userEmail, userPassword)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            loadingLayout.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            loadingLayout.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(LoginActivity.this, "Error" + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
