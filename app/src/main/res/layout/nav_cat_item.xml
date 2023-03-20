@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="#DFFFD1">
+        android:background="@color/brown_200">
         <ImageView
             android:background="@drawable/border"
             android:id="@+id/cat_nav_img"
