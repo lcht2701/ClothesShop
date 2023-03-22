@@ -43,6 +43,7 @@ public class PlacedOrderActivity extends AppCompatActivity {
                 cartMap.put("currentTime", myCartModel.getCurrentTime());
                 cartMap.put("totalQuantity", myCartModel.getTotalQuantity());
                 cartMap.put("totalPrice", myCartModel.getTotalPrice());
+                cartMap.put("img_url", myCartModel.getImg_url());
 
                 firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
                         .collection("MyOrder").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
